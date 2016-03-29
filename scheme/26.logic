@@ -1,0 +1,125 @@
+;; Note:  You will need logic.py in order to run these examples.
+;; Make sure to put logic.py in the same directory as your Scheme project.
+;; Since you have already completed up to Q6, that should be enough to use
+;; the logic interpreter.
+
+;; Demo: Facts and Queries
+
+(color sun yellow)
+help
+(fact (color sun yellow))
+(fact (color sky blue))
+(query (color ?what yellow))
+(query (color sky ?color))
+(fact (grass color green))
+(query (color grass ?what))
+(query (grass color ?what))
+(query (color ?thing ?color))
+(fact (color clouds red))
+(query (color clouds ?color))
+(fact (color clouds white))
+(query (color clouds ?color))
+
+;; Demo: A Larger Database
+
+(load database.logic)
+
+(query (job ?x (computer ?y)))
+(query (job ?x (computer . ?y)))
+(query (can-do-job ?y (computer programmer)))
+
+(fact (can-do-job (computer . ?r) (computer . ?r)))
+
+(query (can-do-job ?y (computer programmer)))
+
+(fact (can-do-job (computer . ?r) (computer . ?s)))
+
+(query (can-do-job ?y (computer programmer)))
+(query (can-do-job ?y (computer programmer)) (job ?x ?y))
+
+(query (address (bitdiddle ben) ?where))
+(query (address (fect cy d) ?where))
+
+(fact (lives-near ?person-1 ?person-2)
+      (address ?person-1 (?town . ?rest-1))
+      (address ?person-2 (?town . ?rest-2)))
+
+(query (lives-near ?who (bitdiddle ben)))
+(query (lives-near ?p1 ?p2))
+
+(query (?relation (hacker alyssa p) (bitdiddle ben)))
+(query (?relation (hacker alyssa p) (fect cy d)))
+
+;; Demo: List Manipulations
+
+(fact (car (?x . ?y) ?x))
+(query (car (1 2 3) ?what))
+; expect Success! ; what: 1
+
+(query (car ((4 5) 6 7) ?what))
+; expect Success! ; what: (4 5)
+
+(query (car 3 ?what))
+; expect Failed.
+
+(fact (cdr (?x . ?y) ?y))
+
+(fact (evens (2 4 6 8)))
+
+;; Use your car rule to write a query that gets the 2 out of evens.
+;; You are not allowed to have any numbers hard-coded into your query.
+;; You must use the car rule (even though there is a simpler solution).
+;; Bonus: find the simpler solution.
+;; Your code here
+
+;; Use your car and cdr rules to write a query that gets the 4 out of evens.
+;; You are not allowed to have any numbers hard-coded into your query.
+;; You must use the car and cdr rules (even though there is a simpler solution).
+;; Bonus: find the simpler solution.
+;; Your code here
+
+
+
+
+;; Demo: Recursive Rules
+(fact (append (?first . ?x) ?y (?first . ?z))
+      (append ?x ?y ?z))
+;; Write the "base case" for the append fact.
+;; Your code here
+
+(query (append (1 2) (3 4 5) ?what))
+(query (append ?what (1 4) (s u 1 4)))
+(query (append ?x ?y (1 2 3 4 5)))
+
+(fact (member ?item (?item . ?cdr)))
+(fact (member ?item (?car . ?cdr))
+      (member ?item ?cdr))
+;; This is a fully functioning member rule.
+;; It seems like we are always breaking the list into two parts...
+;; Where is the base case then?
+;; What happens when you do the following, and why:
+
+(query (member ?what (1 2 3 1 2 3)))
+(query (member 1 ?what))
+(query (member 3 (1 2 ?what)))
+
+
+
+
+
+;; Demo: Permutations Time!
+
+; Define the remove-one rule here
+; Take inspiration from the member rule
+
+(fact (permutation () ()))
+(fact (permutation (?first . ?rest) ?lst)
+      (member ?first ?lst)
+      (remove-one ?first ?lst ?new-lst)
+      (permutation ?rest ?new-lst))
+
+
+(query (permutation ?what (1 2 3)))
+(query (permutation ?what (1 1 2)))
+; Beware of this one
+; (query (permutation (1 2 3) ?what))

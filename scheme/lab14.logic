@@ -1,0 +1,61 @@
+; Name
+; Login
+
+;;;;;;;;;;;;
+;; Lab 14 ;;
+;;;;;;;;;;;;
+
+; Question 2
+; Base Case
+(fact (interleave () ?lst2 ()))
+
+; YOUR CODE HERE
+
+
+(query (interleave (1 2 3 4) (5 6 7 8) ?lst))
+; expect Success! ; lst: (1 5 2 6 3 7 4 8)
+
+(query (interleave (1) (2 3 4 5 6 7 8 9) ?lst))
+; expect Success! ; lst: (1 2)
+
+(query (interleave (1 3 5 7 9) ?evens (1 2 3 4 5 6 7 8 9)))
+; expect Success! ; evens: (2 4 6 8)
+
+
+; Question 3
+; YOUR CODE HERE
+
+(query (last-element (a b c) c))
+; expect Success!
+
+(query (last-element (3) ?x))
+; expect Success! ; x: 3
+
+(query (last-element (1 2 3) ?x))
+; expect Success! ; x: 3
+
+(query (last-element (2 ?x) 3))
+; expect Success! ; x: 3
+
+
+; Question 4
+; YOUR CODE HERE
+
+
+(query (firsts ((1 2 3 4) (2 3 4 5) (1 2 3 4) (1 2 3 2)) ?x))
+; expect Success! ; x: (1 2 1 1)
+
+(query (firsts ((2 3 4) (3 4 5) (2 3 4) (2 3 2)) ?y))
+; expect Success! ; y: (2 3 2 2)
+
+
+; Question 5
+; YOUR CODE HERE
+
+
+(query (rests ((1 2 3 4) (2 3 4 5) (1 2 3 4) (1 2 3 2)) ?x))
+; expect Success! ; x: ((2 3 4) (3 4 5) (2 3 4) (2 3 2))
+
+(query (rests ((2 3 4) (3 4 5) (2 3 4) (2 3 2)) ?y))
+; expect Success! ; y: ((3 4) (4 5) (3 4) (3 2))
+
